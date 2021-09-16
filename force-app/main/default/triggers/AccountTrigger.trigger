@@ -4,7 +4,14 @@ trigger AccountTrigger on Account (after insert, after update)
     
     if(Trigger.isAfter)
     {
-        if(Trigger.isInsert && Trigger.isUpdate)
+        if(Trigger.isInsert)
+        {
+            accountTriggerHandler.getRelatedContacts();
+            accountTriggerHandler.performBudgetCalulation();
+            accountTriggerHandler.updateContactsBudgets();
+        }
+
+        if(Trigger.isUpdate)
         {
             accountTriggerHandler.getRelatedContacts();
             accountTriggerHandler.performBudgetCalulation();
